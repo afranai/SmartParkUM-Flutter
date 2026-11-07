@@ -1,0 +1,9 @@
+{
+  "name": "SmartPark UM",
+  "short_name": "SmartPark",
+  "start_url": ".",
+  "display": "standalone",
+  "background_color": "#F4F8F5",
+  "theme_color": "#43B66A",
+  "description": "Aplikasi informasi parkir kampus SmartPark UM"
+}
