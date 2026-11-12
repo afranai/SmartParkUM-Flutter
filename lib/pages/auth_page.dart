@@ -31,46 +31,87 @@ class _AuthPageState extends State<AuthPage> {
     super.dispose();
   }
 
-  void submit() {
-    final enteredName = name.text.trim();
-    final enteredIdentity = identity.text.trim();
-    final enteredPassword = password.text;
+  
+void submit() {
+  final enteredName = name.text.trim();
+  final enteredIdentity = identity.text.trim().toLowerCase();
+  final enteredPassword = password.text;
 
-    if (enteredIdentity.isEmpty ||
-        enteredPassword.isEmpty ||
-        (signup &&
-            (enteredName.isEmpty ||
-                enteredPassword != confirm.text ||
-                enteredPassword.length < 6))) {
+  if (enteredIdentity.isEmpty || enteredPassword.isEmpty) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      const SnackBar(content: Text('Email/NIM dan kata sandi wajib diisi.')),
+    );
+    return;
+  }
+
+  if (signup) {
+    if (enteredName.isEmpty ||
+        enteredPassword.length < 6 ||
+        enteredPassword != confirm.text) {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
           content: Text(
-            'Lengkapi semua data. Kata sandi minimal 6 karakter dan konfirmasi harus sesuai.',
+            'Lengkapi nama, gunakan kata sandi minimal 6 karakter, dan pastikan konfirmasi sesuai.',
           ),
         ),
       );
       return;
     }
 
-    if (signup) {
-      AppData.name = enteredName.split(' ').first;
-    } else if (AppData.name.isEmpty) {
-      AppData.name = enteredIdentity.contains('@')
-          ? enteredIdentity.split('@').first
-          : enteredIdentity;
+    final alreadyRegistered = AppData.accounts.any(
+      (account) => account.identity == enteredIdentity,
+    );
+
+    if (alreadyRegistered) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Email atau NIM sudah terdaftar.')),
+      );
+      return;
     }
 
-    AppData.email = enteredIdentity;
-    AppData.loggedIn = true;
-
-    Navigator.pushAndRemoveUntil(
-      context,
-      MaterialPageRoute(
-        builder: (_) => const MainShell(),
+    AppData.accounts.add(
+      LocalAccount(
+        name: enteredName,
+        identity: enteredIdentity,
+        password: enteredPassword,
       ),
-      (route) => false,
     );
+
+    AppData.name = enteredName.split(' ').first;
+    AppData.email = enteredIdentity;
+  } else {
+    LocalAccount? account;
+
+    for (final item in AppData.accounts) {
+      if (item.identity == enteredIdentity &&
+          item.password == enteredPassword) {
+        account = item;
+        break;
+      }
+    }
+
+    if (account == null) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('Akun tidak ditemukan atau kata sandi salah.'),
+        ),
+      );
+      return;
+    }
+
+    AppData.name = account.name.split(' ').first;
+    AppData.email = account.identity;
   }
+
+  AppData.loggedIn = true;
+
+  Navigator.pushAndRemoveUntil(
+    context,
+    MaterialPageRoute(builder: (_) => const MainShell()),
+    (route) => false,
+  );
+}
+
 
   @override
   Widget build(BuildContext context) {

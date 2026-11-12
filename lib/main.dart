@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
 import 'app.dart';
 
-void main() => runApp(const SmartParkApp());
+void main() {
+  WidgetsFlutterBinding.ensureInitialized();
+
+  runApp(const SmartParkApp());
+}
