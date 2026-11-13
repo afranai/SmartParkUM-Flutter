@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import '../models/app_data.dart';
 
@@ -15,7 +14,10 @@ class SchedulePage extends StatefulWidget {
 }
 
 class _SchedulePageState extends State<SchedulePage> {
-  static const Color green = Color(0xFF43B66D);
+  // Warna hijau butek/sage yang senada dengan halaman lainnya
+  static const Color green = Color(0xFF69B363);
+  static const Color darkGreen = Color(0xFF4E8D49);
+  static const Color background = Color(0xFFF8F9FA);
 
   final subjectController = TextEditingController();
   final buildingController = TextEditingController();
@@ -83,24 +85,24 @@ class _SchedulePageState extends State<SchedulePage> {
   InputDecoration decoration(String hint, IconData icon) {
     return InputDecoration(
       hintText: hint,
-      prefixIcon: Icon(icon, color: green),
+      prefixIcon: Icon(icon, color: darkGreen),
       filled: true,
-      fillColor: const Color(0xFFF5F8F5),
+      fillColor: Colors.white.withOpacity(0.7),
       contentPadding: const EdgeInsets.symmetric(
         horizontal: 14,
         vertical: 14,
       ),
       border: OutlineInputBorder(
         borderRadius: BorderRadius.circular(13),
-        borderSide: const BorderSide(color: Color(0xFFE0E0E0)),
+        borderSide: BorderSide(color: green.withOpacity(0.3)),
       ),
       enabledBorder: OutlineInputBorder(
         borderRadius: BorderRadius.circular(13),
-        borderSide: const BorderSide(color: Color(0xFFE0E0E0)),
+        borderSide: BorderSide(color: green.withOpacity(0.3)),
       ),
       focusedBorder: OutlineInputBorder(
         borderRadius: BorderRadius.circular(13),
-        borderSide: const BorderSide(color: green, width: 1.5),
+        borderSide: const BorderSide(color: darkGreen, width: 1.5),
       ),
     );
   }
@@ -112,7 +114,8 @@ class _SchedulePageState extends State<SchedulePage> {
         value,
         style: const TextStyle(
           fontSize: 13,
-          fontWeight: FontWeight.w600,
+          fontWeight: FontWeight.w700,
+          color: darkGreen,
         ),
       ),
     );
@@ -130,8 +133,9 @@ class _SchedulePageState extends State<SchedulePage> {
       children: [
         label(title),
         DropdownButtonFormField<String>(
-          initialValue: value,
+          value: value,
           isExpanded: true,
+          dropdownColor: Colors.white,
           decoration: decoration('Pilih $title', icon),
           items: items.map((item) {
             return DropdownMenuItem<String>(
@@ -139,7 +143,7 @@ class _SchedulePageState extends State<SchedulePage> {
               child: Text(
                 item,
                 overflow: TextOverflow.ellipsis,
-                style: const TextStyle(fontSize: 12),
+                style: const TextStyle(fontSize: 12, color: Colors.black87),
               ),
             );
           }).toList(),
@@ -149,7 +153,6 @@ class _SchedulePageState extends State<SchedulePage> {
     );
   }
 
-  // Memeriksa format jam HH.MM.
   int? convertTimeToMinutes(String value) {
     final match = RegExp(r'^([01]\d|2[0-3])\.([0-5]\d)$')
         .firstMatch(value.trim());
@@ -255,7 +258,7 @@ class _SchedulePageState extends State<SchedulePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFFF0F0F0),
+      backgroundColor: background,
       appBar: AppBar(
         backgroundColor: green,
         foregroundColor: Colors.white,
@@ -270,6 +273,7 @@ class _SchedulePageState extends State<SchedulePage> {
       body: ListView(
         padding: const EdgeInsets.all(20),
         children: [
+          // Banner atas hijau butek
           Container(
             padding: const EdgeInsets.all(18),
             decoration: BoxDecoration(
@@ -293,6 +297,7 @@ class _SchedulePageState extends State<SchedulePage> {
                       color: Colors.white,
                       fontSize: 12,
                       height: 1.5,
+                      fontWeight: FontWeight.w500,
                     ),
                   ),
                 ),
@@ -300,11 +305,17 @@ class _SchedulePageState extends State<SchedulePage> {
             ),
           ),
           const SizedBox(height: 20),
+
+          // Kotak form informasi mata kuliah (hijau butek transparan)
           Container(
             padding: const EdgeInsets.all(18),
             decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.circular(18),
+              color: green.withOpacity(0.12),
+              borderRadius: BorderRadius.circular(22),
+              border: Border.all(
+                color: green.withOpacity(0.3),
+                width: 1.5,
+              ),
             ),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -313,7 +324,8 @@ class _SchedulePageState extends State<SchedulePage> {
                   'Informasi Mata Kuliah',
                   style: TextStyle(
                     fontSize: 17,
-                    fontWeight: FontWeight.bold,
+                    fontWeight: FontWeight.w800,
+                    color: darkGreen,
                   ),
                 ),
                 const SizedBox(height: 20),
@@ -359,6 +371,7 @@ class _SchedulePageState extends State<SchedulePage> {
                         style: TextStyle(
                           fontSize: 18,
                           fontWeight: FontWeight.bold,
+                          color: darkGreen,
                         ),
                       ),
                     ),
@@ -369,11 +382,11 @@ class _SchedulePageState extends State<SchedulePage> {
                   ],
                 ),
                 const Padding(
-                  padding: EdgeInsets.only(top: 2),
+                  padding: EdgeInsets.only(top: 4),
                   child: Text(
                     'Masukkan format 24 jam, contoh 07.35 dan 09.00.',
                     style: TextStyle(
-                      color: Colors.grey,
+                      color: Colors.black54,
                       fontSize: 10,
                     ),
                   ),
@@ -412,14 +425,17 @@ class _SchedulePageState extends State<SchedulePage> {
                     ),
                     label: Text(
                       isEditing ? 'Simpan Perubahan' : 'Simpan Jadwal',
-                      style: const TextStyle(fontSize: 13),
+                      style: const TextStyle(
+                        fontSize: 13,
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
                     style: ElevatedButton.styleFrom(
                       backgroundColor: green,
                       foregroundColor: Colors.white,
                       elevation: 0,
                       shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(13),
+                        borderRadius: BorderRadius.circular(14),
                       ),
                     ),
                   ),

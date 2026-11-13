@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 
 import '../models/app_data.dart';
@@ -12,8 +11,10 @@ class AllSchedulesPage extends StatefulWidget {
 }
 
 class _AllSchedulesPageState extends State<AllSchedulesPage> {
-  static const green = Color(0xFF43B66D);
-  static const darkGreen = Color(0xFF24864A);
+  // Warna hijau butek/sage yang senada dengan halaman lainnya
+  static const green = Color(0xFF69B363);
+  static const darkGreen = Color(0xFF4E8D49);
+  static const background = Color(0xFFF8F9FA);
 
   final days = const [
     'Senin',
@@ -76,8 +77,9 @@ class _AllSchedulesPageState extends State<AllSchedulesPage> {
       margin: const EdgeInsets.only(bottom: 9),
       padding: const EdgeInsets.all(12),
       decoration: BoxDecoration(
-        color: const Color(0xFFF5F8F5),
+        color: Colors.white.withOpacity(0.7),
         borderRadius: BorderRadius.circular(13),
+        border: Border.all(color: green.withOpacity(0.3)),
       ),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -86,7 +88,7 @@ class _AllSchedulesPageState extends State<AllSchedulesPage> {
             width: 38,
             height: 38,
             decoration: BoxDecoration(
-              color: const Color(0xFFE4F5E9),
+              color: const Color(0xFFE4F2E8),
               borderRadius: BorderRadius.circular(10),
             ),
             child: const Icon(
@@ -105,6 +107,7 @@ class _AllSchedulesPageState extends State<AllSchedulesPage> {
                   style: const TextStyle(
                     fontSize: 12,
                     fontWeight: FontWeight.bold,
+                    color: darkGreen,
                   ),
                 ),
                 const SizedBox(height: 5),
@@ -112,14 +115,14 @@ class _AllSchedulesPageState extends State<AllSchedulesPage> {
                   schedule.subject,
                   style: const TextStyle(
                     fontSize: 13,
-                    fontWeight: FontWeight.w600,
+                    fontWeight: FontWeight.w700,
                   ),
                 ),
                 const SizedBox(height: 5),
                 Text(
                   schedule.faculty,
                   style: const TextStyle(
-                    color: Colors.grey,
+                    color: Colors.black54,
                     fontSize: 10,
                   ),
                 ),
@@ -127,7 +130,7 @@ class _AllSchedulesPageState extends State<AllSchedulesPage> {
                 Text(
                   schedule.building,
                   style: const TextStyle(
-                    color: Colors.grey,
+                    color: Colors.black54,
                     fontSize: 10,
                   ),
                 ),
@@ -139,7 +142,7 @@ class _AllSchedulesPageState extends State<AllSchedulesPage> {
             onPressed: () => editSchedule(schedule),
             icon: const Icon(
               Icons.edit_outlined,
-              color: green,
+              color: darkGreen,
               size: 20,
             ),
           ),
@@ -164,15 +167,13 @@ class _AllSchedulesPageState extends State<AllSchedulesPage> {
       margin: const EdgeInsets.only(bottom: 14),
       padding: const EdgeInsets.all(17),
       decoration: BoxDecoration(
-        color: Colors.white,
+        // Kotak hari diubah menjadi hijau butek transparan yang senada
+        color: green.withOpacity(0.15),
         borderRadius: BorderRadius.circular(20),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withValues(alpha: 0.045),
-            blurRadius: 9,
-            offset: const Offset(0, 3),
-          ),
-        ],
+        border: Border.all(
+          color: green.withOpacity(0.3),
+          width: 1.5,
+        ),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -183,7 +184,8 @@ class _AllSchedulesPageState extends State<AllSchedulesPage> {
                 day,
                 style: const TextStyle(
                   fontSize: 17,
-                  fontWeight: FontWeight.bold,
+                  fontWeight: FontWeight.w800,
+                  color: darkGreen,
                 ),
               ),
               const Spacer(),
@@ -193,14 +195,16 @@ class _AllSchedulesPageState extends State<AllSchedulesPage> {
                   vertical: 7,
                 ),
                 decoration: BoxDecoration(
-                  color: const Color(0xFFE4F5E9),
+                  color: Colors.white.withOpacity(0.8),
                   borderRadius: BorderRadius.circular(25),
+                  border: Border.all(color: green),
                 ),
                 child: Text(
                   '${schedules.length} Mata Kuliah',
                   style: const TextStyle(
                     color: darkGreen,
                     fontSize: 11,
+                    fontWeight: FontWeight.bold,
                   ),
                 ),
               ),
@@ -208,11 +212,15 @@ class _AllSchedulesPageState extends State<AllSchedulesPage> {
           ),
           const SizedBox(height: 15),
           if (schedules.isEmpty)
-            const Text(
-              'Belum ada jadwal kuliah.',
-              style: TextStyle(
-                color: Colors.grey,
-                fontSize: 12,
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: 4),
+              child: Text(
+                'Belum ada jadwal kuliah.',
+                style: TextStyle(
+                  color: darkGreen.withOpacity(0.7),
+                  fontSize: 12,
+                  fontWeight: FontWeight.w500,
+                ),
               ),
             )
           else
@@ -228,14 +236,14 @@ class _AllSchedulesPageState extends State<AllSchedulesPage> {
       valueListenable: AppData.scheduleVersion,
       builder: (context, version, child) {
         return Scaffold(
-          backgroundColor: const Color(0xFFEAEAEA),
+          backgroundColor: background,
           body: SafeArea(
             child: Column(
               children: [
                 Container(
                   width: double.infinity,
                   padding: const EdgeInsets.fromLTRB(
-                    20, 22, 20, 22,
+                    20, 22, 20, 24,
                   ),
                   decoration: const BoxDecoration(
                     color: green,
@@ -259,7 +267,7 @@ class _AllSchedulesPageState extends State<AllSchedulesPage> {
                       Text(
                         'Lihat dan kelola jadwal perkuliahanmu.',
                         style: TextStyle(
-                          color: Colors.white,
+                          color: Colors.white70,
                           fontSize: 11,
                         ),
                       ),

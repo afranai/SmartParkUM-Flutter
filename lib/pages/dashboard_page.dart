@@ -20,10 +20,11 @@ class DashboardPage extends StatefulWidget {
 }
 
 class _DashboardPageState extends State<DashboardPage> {
-  static const Color green = Color(0xFF43B66D);
-  static const Color darkGreen = Color(0xFF24864A);
-  static const Color paleGreen = Color(0xFFE4F5E9);
-  static const Color background = Color(0xFFEAEAEA);
+  // Warna hijau butek/sage yang senada dengan halaman sebelumnya
+  static const Color green = Color(0xFF69B363);
+  static const Color darkGreen = Color(0xFF4E8D49);
+  static const Color paleGreen = Color(0xFFE4F2E8);
+  static const Color background = Color(0xFFF8F9FA);
 
   final List<String> days = const [
     'Senin',
@@ -75,7 +76,6 @@ class _DashboardPageState extends State<DashboardPage> {
       }
     }
 
-    // Contoh: B11 atau B12 akan diarahkan ke Gedung B.
     final firstLetter = input.replaceAll(
       RegExp(r'[^a-z]'),
       '',
@@ -129,12 +129,12 @@ class _DashboardPageState extends State<DashboardPage> {
 
     return Container(
       width: double.infinity,
-      padding: const EdgeInsets.fromLTRB(22, 25, 22, 28),
+      padding: const EdgeInsets.fromLTRB(22, 25, 22, 32),
       decoration: const BoxDecoration(
         color: green,
         borderRadius: BorderRadius.only(
-          bottomLeft: Radius.circular(28),
-          bottomRight: Radius.circular(28),
+          bottomLeft: Radius.circular(32),
+          bottomRight: Radius.circular(32),
         ),
       ),
       child: Column(
@@ -147,14 +147,14 @@ class _DashboardPageState extends State<DashboardPage> {
                 height: 58,
                 decoration: BoxDecoration(
                   color: Colors.white,
-                  borderRadius: BorderRadius.circular(15),
+                  borderRadius: BorderRadius.circular(16),
                 ),
                 child: const Center(
                   child: Text(
                     'P',
                     style: TextStyle(
                       color: green,
-                      fontSize: 43,
+                      fontSize: 40,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
@@ -183,15 +183,15 @@ class _DashboardPageState extends State<DashboardPage> {
               ),
             ],
           ),
-          const SizedBox(height: 27),
+          const SizedBox(height: 24),
           Container(
             padding: const EdgeInsets.symmetric(
               horizontal: 18,
-              vertical: 17,
+              vertical: 16,
             ),
             decoration: BoxDecoration(
-              color: Colors.white.withValues(alpha: 0.09),
-              borderRadius: BorderRadius.circular(23),
+              color: Colors.white.withOpacity(0.12),
+              borderRadius: BorderRadius.circular(20),
             ),
             child: Row(
               children: [
@@ -203,7 +203,7 @@ class _DashboardPageState extends State<DashboardPage> {
                         'Halo, $firstName! 👋',
                         style: const TextStyle(
                           color: Colors.white,
-                          fontSize: 21,
+                          fontSize: 20,
                           fontWeight: FontWeight.bold,
                         ),
                       ),
@@ -213,7 +213,7 @@ class _DashboardPageState extends State<DashboardPage> {
                             ? 'Selamat beristirahat!'
                             : '$greeting, semangat kuliah!',
                         style: const TextStyle(
-                          color: Colors.white,
+                          color: Colors.white70,
                           fontSize: 12,
                         ),
                       ),
@@ -221,11 +221,11 @@ class _DashboardPageState extends State<DashboardPage> {
                   ),
                 ),
                 const CircleAvatar(
-                  radius: 30,
+                  radius: 28,
                   backgroundColor: Colors.white,
                   child: Text(
                     '👩🏻',
-                    style: TextStyle(fontSize: 31),
+                    style: TextStyle(fontSize: 28),
                   ),
                 ),
               ],
@@ -243,7 +243,7 @@ class _DashboardPageState extends State<DashboardPage> {
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(16),
-        border: Border.all(color: const Color(0xFFE0E0E0)),
+        border: Border.all(color: green.withOpacity(0.3)),
       ),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -319,18 +319,16 @@ class _DashboardPageState extends State<DashboardPage> {
     final schedules = todaySchedules;
 
     return Container(
-      margin: const EdgeInsets.fromLTRB(17, 20, 17, 0),
-      padding: const EdgeInsets.all(17),
+      margin: const EdgeInsets.fromLTRB(18, 16, 18, 0),
+      padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(23),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withValues(alpha: 0.04),
-            blurRadius: 12,
-            offset: const Offset(0, 4),
-          ),
-        ],
+        // Hijau butek transparan yang senada dengan header
+        color: green.withOpacity(0.15),
+        borderRadius: BorderRadius.circular(22),
+        border: Border.all(
+          color: green.withOpacity(0.3),
+          width: 1.5,
+        ),
       ),
       child: Column(
         children: [
@@ -341,25 +339,27 @@ class _DashboardPageState extends State<DashboardPage> {
                   'Jadwal Kuliah Hari Ini',
                   style: TextStyle(
                     fontSize: 15,
-                    fontWeight: FontWeight.bold,
+                    fontWeight: FontWeight.w800,
+                    color: darkGreen,
                   ),
                 ),
               ),
               Container(
                 padding: const EdgeInsets.symmetric(
-                  horizontal: 15,
-                  vertical: 8,
+                  horizontal: 14,
+                  vertical: 7,
                 ),
                 decoration: BoxDecoration(
-                  color: paleGreen,
+                  color: Colors.white.withOpacity(0.8),
                   border: Border.all(color: green),
-                  borderRadius: BorderRadius.circular(25),
+                  borderRadius: BorderRadius.circular(20),
                 ),
                 child: Text(
                   today,
                   style: const TextStyle(
                     color: darkGreen,
                     fontSize: 12,
+                    fontWeight: FontWeight.bold,
                   ),
                 ),
               ),
@@ -368,15 +368,16 @@ class _DashboardPageState extends State<DashboardPage> {
           const SizedBox(height: 14),
 
           if (schedules.isEmpty)
-            const Padding(
-              padding: EdgeInsets.symmetric(vertical: 13),
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: 12),
               child: Align(
                 alignment: Alignment.centerLeft,
                 child: Text(
                   'Kamu belum menambahkan jadwal kuliah hari ini.',
                   style: TextStyle(
-                    color: Colors.grey,
+                    color: darkGreen.withOpacity(0.8),
                     fontSize: 12,
+                    fontWeight: FontWeight.w500,
                   ),
                 ),
               ),
@@ -386,37 +387,42 @@ class _DashboardPageState extends State<DashboardPage> {
 
           InkWell(
             onTap: addSchedule,
-            borderRadius: BorderRadius.circular(15),
+            borderRadius: BorderRadius.circular(14),
             child: Container(
               width: double.infinity,
-              margin: const EdgeInsets.only(top: 8),
+              margin: const EdgeInsets.only(top: 6),
               padding: const EdgeInsets.symmetric(
                 horizontal: 14,
                 vertical: 10,
               ),
               decoration: BoxDecoration(
-                border: Border.all(color: Colors.black26),
-                borderRadius: BorderRadius.circular(15),
+                color: Colors.white.withOpacity(0.6),
+                border: Border.all(color: green.withOpacity(0.5)),
+                borderRadius: BorderRadius.circular(14),
               ),
               child: Row(
                 children: [
                   const Expanded(
                     child: Text(
                       'Tambahkan Jadwal Perkuliahanmu!',
-                      style: TextStyle(fontSize: 12),
+                      style: TextStyle(
+                        fontSize: 12,
+                        fontWeight: FontWeight.w600,
+                        color: darkGreen,
+                      ),
                     ),
                   ),
                   Container(
-                    width: 39,
-                    height: 39,
+                    width: 36,
+                    height: 36,
                     decoration: BoxDecoration(
                       color: green,
-                      borderRadius: BorderRadius.circular(12),
+                      borderRadius: BorderRadius.circular(10),
                     ),
                     child: const Icon(
                       Icons.add,
                       color: Colors.white,
-                      size: 27,
+                      size: 24,
                     ),
                   ),
                 ],
@@ -430,13 +436,14 @@ class _DashboardPageState extends State<DashboardPage> {
               icon: const Icon(
                 Icons.calendar_month,
                 color: darkGreen,
-                size: 19,
+                size: 18,
               ),
               label: const Text(
                 'Lihat Semua Jadwal',
                 style: TextStyle(
                   color: darkGreen,
                   fontSize: 12,
+                  fontWeight: FontWeight.bold,
                 ),
               ),
             ),
@@ -455,11 +462,11 @@ class _DashboardPageState extends State<DashboardPage> {
       padding: const EdgeInsets.all(13),
       decoration: BoxDecoration(
         color: Colors.white,
-        borderRadius: BorderRadius.circular(19),
+        borderRadius: BorderRadius.circular(18),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withValues(alpha: 0.05),
-            blurRadius: 9,
+            color: Colors.black.withOpacity(0.04),
+            blurRadius: 8,
             offset: const Offset(0, 3),
           ),
         ],
@@ -469,8 +476,8 @@ class _DashboardPageState extends State<DashboardPage> {
           Row(
             children: [
               Container(
-                width: 78,
-                height: 78,
+                width: 72,
+                height: 72,
                 decoration: BoxDecoration(
                   color: paleGreen,
                   borderRadius: BorderRadius.circular(14),
@@ -478,10 +485,10 @@ class _DashboardPageState extends State<DashboardPage> {
                 child: const Icon(
                   Icons.two_wheeler,
                   color: green,
-                  size: 42,
+                  size: 38,
                 ),
               ),
-              const SizedBox(width: 13),
+              const SizedBox(width: 12),
               Expanded(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -493,7 +500,7 @@ class _DashboardPageState extends State<DashboardPage> {
                         fontSize: 14,
                       ),
                     ),
-                    const SizedBox(height: 7),
+                    const SizedBox(height: 6),
                     const Text(
                       'Area parkir tersedia',
                       style: TextStyle(
@@ -501,7 +508,7 @@ class _DashboardPageState extends State<DashboardPage> {
                         fontSize: 11,
                       ),
                     ),
-                    const SizedBox(height: 4),
+                    const SizedBox(height: 3),
                     Text(
                       'Jarak: ${recommendation.distance.toStringAsFixed(2)} unit',
                       style: const TextStyle(
@@ -513,8 +520,8 @@ class _DashboardPageState extends State<DashboardPage> {
                 ),
               ),
               Container(
-                width: 68,
-                height: 78,
+                width: 64,
+                height: 72,
                 decoration: BoxDecoration(
                   color: lowAvailability
                       ? const Color(0xFFFFEEEE)
@@ -524,7 +531,7 @@ class _DashboardPageState extends State<DashboardPage> {
                         ? Colors.red.shade200
                         : Colors.orange.shade300,
                   ),
-                  borderRadius: BorderRadius.circular(13),
+                  borderRadius: BorderRadius.circular(12),
                 ),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -535,7 +542,7 @@ class _DashboardPageState extends State<DashboardPage> {
                         color: lowAvailability
                             ? Colors.red
                             : Colors.orange.shade800,
-                        fontSize: 25,
+                        fontSize: 22,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
@@ -548,23 +555,23 @@ class _DashboardPageState extends State<DashboardPage> {
               ),
             ],
           ),
-          const SizedBox(height: 11),
+          const SizedBox(height: 10),
           SizedBox(
             width: double.infinity,
             height: 34,
             child: ElevatedButton(
-              onPressed: () => openParkingDetail(parking),
               style: ElevatedButton.styleFrom(
                 backgroundColor: green,
                 foregroundColor: Colors.white,
                 elevation: 0,
                 shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(20),
+                  borderRadius: BorderRadius.circular(14),
                 ),
               ),
+              onPressed: () => openParkingDetail(parking),
               child: const Text(
                 'Lihat Detail',
-                style: TextStyle(fontSize: 11),
+                style: TextStyle(fontSize: 11, fontWeight: FontWeight.w600),
               ),
             ),
           ),
@@ -580,13 +587,12 @@ class _DashboardPageState extends State<DashboardPage> {
       return const SizedBox.shrink();
     }
 
-    // Rekomendasi menggunakan gedung dari mata kuliah pertama hari ini.
     final destination = findDestination(schedules.first.building);
 
     if (destination == null) {
       return Container(
-        margin: const EdgeInsets.fromLTRB(20, 22, 20, 20),
-        padding: const EdgeInsets.all(17),
+        margin: const EdgeInsets.fromLTRB(18, 18, 18, 16),
+        padding: const EdgeInsets.all(16),
         decoration: BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.circular(18),
@@ -606,18 +612,18 @@ class _DashboardPageState extends State<DashboardPage> {
         ParkingRecommendationService.recommendParking(destination.id);
 
     return Padding(
-      padding: const EdgeInsets.fromLTRB(20, 22, 20, 20),
+      padding: const EdgeInsets.fromLTRB(18, 18, 18, 16),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           const Text(
             'Area Parkir Terdekat',
             style: TextStyle(
-              fontSize: 19,
+              fontSize: 18,
               fontWeight: FontWeight.bold,
             ),
           ),
-          const SizedBox(height: 5),
+          const SizedBox(height: 4),
           Text(
             'Rekomendasi untuk ${schedules.first.building}',
             style: const TextStyle(
@@ -625,7 +631,7 @@ class _DashboardPageState extends State<DashboardPage> {
               fontSize: 12,
             ),
           ),
-          const SizedBox(height: 14),
+          const SizedBox(height: 12),
           if (recommendations.isEmpty)
             const Text('Belum ada area parkir yang tersedia.')
           else
@@ -651,7 +657,7 @@ class _DashboardPageState extends State<DashboardPage> {
               buildHeader(),
               buildScheduleSection(),
               buildParkingSection(),
-              const SizedBox(height: 15),
+              const SizedBox(height: 20),
             ],
           ),
         ),

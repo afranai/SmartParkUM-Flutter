@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -14,6 +13,10 @@ class LandingPage extends StatefulWidget {
 }
 
 class _LandingPageState extends State<LandingPage> {
+  // Warna hijau butek yang segar, kalem, dan natural sesuai permintaan
+  static const Color myButekGreen = Color(0xFF69B363);
+  static const Color myButekDarkGreen = Color(0xFF4E8D49);
+
   final PageController controller = PageController();
 
   @override
@@ -60,43 +63,96 @@ class _LandingPageState extends State<LandingPage> {
 
   Widget _intro() {
     return Container(
-      color: green,
-      padding: const EdgeInsets.all(28),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
+      width: double.infinity,
+      height: double.infinity,
+      decoration: const BoxDecoration(
+        color: myButekGreen,
+      ),
+      child: Stack(
         children: [
-          const Spacer(),
-
-          appLogo(112),
-
-          const SizedBox(height: 24),
-
-          Text(
-            'SmartPark',
-            style: GoogleFonts.poppins(
-              fontSize: 40,
-              fontWeight: FontWeight.w800,
-              color: yellow,
+          // Bubble / ornamen lingkaran transparan agar latar belakang lebih hidup & estetik
+          Positioned(
+            top: -40,
+            right: -40,
+            child: Container(
+              width: 220,
+              height: 220,
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                color: Colors.white.withOpacity(0.12),
+              ),
             ),
           ),
-
-          const Text(
-            'UNIVERSITAS NEGERI MALANG',
-            style: TextStyle(
-              color: Colors.white,
-              letterSpacing: 2,
-              fontSize: 12,
+          Positioned(
+            bottom: -50,
+            left: -50,
+            child: Container(
+              width: 200,
+              height: 200,
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                color: Colors.white.withOpacity(0.10),
+              ),
             ),
           ),
+          
+          // Konten Utama
+          Padding(
+            padding: const EdgeInsets.all(28),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                const Spacer(),
 
-          const Spacer(),
+                // Bingkai logo dengan efek glassmorphism
+                Container(
+                  padding: const EdgeInsets.all(20),
+                  decoration: BoxDecoration(
+                    color: Colors.white.withOpacity(0.15),
+                    shape: BoxShape.circle,
+                    border: Border.all(
+                      color: Colors.white.withOpacity(0.25),
+                      width: 1.5,
+                    ),
+                  ),
+                  child: appLogo(90),
+                ),
 
-          whiteButton(
-            'Jelajahi Sekarang',
-            nextPage,
+                const SizedBox(height: 28),
+
+                Text(
+                  'SmartPark',
+                  style: GoogleFonts.poppins(
+                    fontSize: 42,
+                    fontWeight: FontWeight.w800,
+                    color: yellow,
+                    letterSpacing: 0.5,
+                  ),
+                ),
+
+                const SizedBox(height: 6),
+
+                const Text(
+                  'UNIVERSITAS NEGERI MALANG',
+                  style: TextStyle(
+                    color: Colors.white70,
+                    letterSpacing: 2.5,
+                    fontSize: 11,
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
+
+                const Spacer(),
+
+                whiteButton(
+                  'Jelajahi Sekarang',
+                  nextPage,
+                ),
+
+                const SizedBox(height: 30),
+              ],
+            ),
           ),
-
-          const SizedBox(height: 30),
         ],
       ),
     );
@@ -117,120 +173,148 @@ class _LandingPageState extends State<LandingPage> {
       'Pilih area parkir yang tersedia dan temukan lokasi parkir tujuanmu dengan mudah.',
     ];
 
-    return Column(
-      children: [
-        Expanded(
-          flex: 6,
-          child: Container(
-            width: double.infinity,
-            color: green,
-            padding: const EdgeInsets.all(24),
-            child: Column(
-              children: [
-                Align(
-                  alignment: Alignment.centerLeft,
-                  child: IconButton(
-                    onPressed: previousPage,
-                    icon: const Icon(
-                      Icons.arrow_back,
-                      color: Colors.white,
+    return Container(
+      color: myButekGreen, // Background semua halaman onboarding ikut hijau butek
+      child: Column(
+        children: [
+          Expanded(
+            flex: 6,
+            child: Container(
+              width: double.infinity,
+              padding: const EdgeInsets.all(24),
+              child: Column(
+                children: [
+                  Align(
+                    alignment: Alignment.centerLeft,
+                    child: IconButton(
+                      onPressed: previousPage,
+                      icon: const Icon(
+                        Icons.arrow_back,
+                        color: Colors.white,
+                      ),
                     ),
                   ),
-                ),
 
-                const Spacer(),
+                  const Spacer(),
 
-                _illustration(page),
+                  _illustration(page),
 
-                const Spacer(),
-              ],
-            ),
-          ),
-        ),
-
-        Expanded(
-          flex: 4,
-          child: Container(
-            width: double.infinity,
-            padding: const EdgeInsets.fromLTRB(28, 22, 28, 26),
-            decoration: const BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.vertical(
-                top: Radius.circular(28),
+                  const Spacer(),
+                ],
               ),
             ),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Row(
-                  children: List.generate(
-                    3,
-                    (i) => AnimatedContainer(
-                      duration: const Duration(milliseconds: 200),
-                      margin: const EdgeInsets.only(right: 6),
-                      height: 6,
-                      width: i == page - 1 ? 25 : 7,
-                      decoration: BoxDecoration(
-                        color: i == page - 1
-                            ? green
-                            : const Color(0xFFDCE5DE),
-                        borderRadius: BorderRadius.circular(10),
+          ),
+
+          Expanded(
+            flex: 4,
+            child: Container(
+              width: double.infinity,
+              padding: const EdgeInsets.fromLTRB(28, 22, 28, 26),
+              decoration: const BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.vertical(
+                  top: Radius.circular(28),
+                ),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.black12,
+                    blurRadius: 10,
+                    offset: Offset(0, -3),
+                  ),
+                ],
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Row(
+                    children: List.generate(
+                      3,
+                      (i) => AnimatedContainer(
+                        duration: const Duration(milliseconds: 200),
+                        margin: const EdgeInsets.only(right: 6),
+                        height: 6,
+                        width: i == page - 1 ? 25 : 7,
+                        decoration: BoxDecoration(
+                          color: i == page - 1
+                              ? myButekGreen
+                              : const Color(0xFFDCE5DE),
+                          borderRadius: BorderRadius.circular(10),
+                        ),
                       ),
                     ),
                   ),
-                ),
 
-                const Spacer(),
+                  const Spacer(),
 
-                Text(
-                  titles[page],
-                  style: const TextStyle(
-                    fontSize: 23,
-                    fontWeight: FontWeight.w700,
-                    color: ink,
+                  Text(
+                    titles[page],
+                    style: const TextStyle(
+                      fontSize: 23,
+                      fontWeight: FontWeight.w700,
+                      color: ink,
+                    ),
                   ),
-                ),
 
-                const SizedBox(height: 10),
+                  const SizedBox(height: 10),
 
-                Text(
-                  descriptions[page],
-                  style: const TextStyle(
-                    color: muted,
-                    height: 1.6,
+                  Text(
+                    descriptions[page],
+                    style: const TextStyle(
+                      color: muted,
+                      height: 1.6,
+                    ),
                   ),
-                ),
 
-                const Spacer(),
+                  const Spacer(),
 
-                primaryButton(
-                  page == 3 ? 'Mulai Sekarang' : 'Lanjutkan',
-                  () {
-                    if (page < 3) {
-                      nextPage();
-                    } else {
-                      go(context, const AuthPage());
-                    }
-                  },
-                ),
-
-                if (page == 3)
-                  Center(
-                    child: TextButton(
+                  // Tombol Lanjutkan / Mulai Sekarang menggunakan warna hijau butek
+                  SizedBox(
+                    width: double.infinity,
+                    height: 50,
+                    child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: myButekGreen,
+                        foregroundColor: Colors.white,
+                        elevation: 0,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(14),
+                        ),
+                      ),
                       onPressed: () {
-                        go(context, const AuthPage());
+                        if (page < 3) {
+                          nextPage();
+                        } else {
+                          go(context, const AuthPage());
+                        }
                       },
-                      child: const Text(
-                        'Sudah punya akun? Masuk',
-                        style: TextStyle(color: darkGreen),
+                      child: Text(
+                        page == 3 ? 'Mulai Sekarang' : 'Lanjutkan',
+                        style: const TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.w600,
+                        ),
                       ),
                     ),
                   ),
-              ],
+
+                  if (page == 3)
+                    Center(
+                      child: TextButton(
+                        onPressed: () {
+                          go(context, const AuthPage());
+                        },
+                        child: const Text(
+                          'Sudah punya akun? Masuk',
+                          style: TextStyle(color: myButekDarkGreen),
+                        ),
+                      ),
+                    ),
+                ],
+              ),
             ),
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 
@@ -243,7 +327,7 @@ class _LandingPageState extends State<LandingPage> {
         borderRadius: BorderRadius.circular(30),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withValues(alpha: 0.12),
+            color: Colors.black.withOpacity(0.15),
             blurRadius: 25,
             offset: const Offset(0, 12),
           ),
@@ -269,7 +353,7 @@ class _LandingPageState extends State<LandingPage> {
             const Icon(
               Icons.local_parking,
               size: 65,
-              color: green,
+              color: myButekGreen,
             ),
 
             const Text(
@@ -291,7 +375,7 @@ class _LandingPageState extends State<LandingPage> {
                 child: Icon(
                   Icons.videocam_rounded,
                   size: 55,
-                  color: darkGreen,
+                  color: myButekDarkGreen,
                 ),
               ),
             ),
@@ -325,7 +409,7 @@ class _LandingPageState extends State<LandingPage> {
             const Icon(
               Icons.map_rounded,
               size: 65,
-              color: green,
+              color: myButekGreen,
             ),
 
             const Text(
@@ -372,7 +456,7 @@ class _LandingPageState extends State<LandingPage> {
             subtitle,
             style: const TextStyle(
               fontSize: 9,
-              color: darkGreen,
+              color: myButekDarkGreen,
             ),
           ),
         ],

@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 
 import '../data/parking_data.dart';
@@ -14,10 +13,11 @@ class RecommendationPage extends StatefulWidget {
 }
 
 class _RecommendationPageState extends State<RecommendationPage> {
-  static const Color green = Color(0xFF43B66D);
-  static const Color darkGreen = Color(0xFF24864A);
-  static const Color paleGreen = Color(0xFFE4F5E9);
-  static const Color background = Color(0xFFEAEAEA);
+  // Warna hijau butek/sage yang senada dengan halaman lainnya
+  static const Color green = Color(0xFF69B363);
+  static const Color darkGreen = Color(0xFF4E8D49);
+  static const Color paleGreen = Color(0xFFE4F2E8);
+  static const Color background = Color(0xFFF8F9FA);
 
   final TextEditingController searchController =
       TextEditingController();
@@ -176,12 +176,12 @@ class _RecommendationPageState extends State<RecommendationPage> {
       decoration: InputDecoration(
         hintText: 'Cari kode, nama, atau lokasi parkir',
         hintStyle: const TextStyle(
-          color: Colors.grey,
+          color: Colors.black54,
           fontSize: 11,
         ),
         prefixIcon: const Icon(
           Icons.search,
-          color: green,
+          color: darkGreen,
         ),
         suffixIcon: searchQuery.isNotEmpty
             ? IconButton(
@@ -195,27 +195,28 @@ class _RecommendationPageState extends State<RecommendationPage> {
                 icon: const Icon(
                   Icons.close,
                   size: 20,
+                  color: darkGreen,
                 ),
               )
             : null,
         filled: true,
-        fillColor: const Color(0xFFF5F8F5),
+        fillColor: Colors.white.withOpacity(0.7),
         contentPadding: const EdgeInsets.symmetric(
           horizontal: 14,
           vertical: 14,
         ),
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(14),
-          borderSide: BorderSide.none,
+          borderSide: BorderSide(color: green.withOpacity(0.3)),
         ),
         enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(14),
-          borderSide: BorderSide.none,
+          borderSide: BorderSide(color: green.withOpacity(0.3)),
         ),
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(14),
           borderSide: const BorderSide(
-            color: green,
+            color: darkGreen,
             width: 1.3,
           ),
         ),
@@ -226,7 +227,6 @@ class _RecommendationPageState extends State<RecommendationPage> {
   // Kartu informasi parkir.
   Widget buildParkingCard(ParkingArea parking) {
     final lowAvailability = parking.available <= 5;
-
     final occupancy = parking.occupancy.clamp(0.0, 1.0);
 
     return Container(
@@ -237,8 +237,8 @@ class _RecommendationPageState extends State<RecommendationPage> {
         borderRadius: BorderRadius.circular(18),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withValues(alpha: 0.045),
-            blurRadius: 9,
+            color: Colors.black.withOpacity(0.04),
+            blurRadius: 8,
             offset: const Offset(0, 3),
           ),
         ],
@@ -260,9 +260,7 @@ class _RecommendationPageState extends State<RecommendationPage> {
                   size: 40,
                 ),
               ),
-
               const SizedBox(width: 12),
-
               Expanded(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -274,9 +272,7 @@ class _RecommendationPageState extends State<RecommendationPage> {
                         fontWeight: FontWeight.bold,
                       ),
                     ),
-
                     const SizedBox(height: 5),
-
                     Text(
                       parking.location,
                       style: const TextStyle(
@@ -284,9 +280,7 @@ class _RecommendationPageState extends State<RecommendationPage> {
                         fontSize: 10,
                       ),
                     ),
-
                     const SizedBox(height: 5),
-
                     Text(
                       'Terisi ${(occupancy * 100).toStringAsFixed(0)}%',
                       style: const TextStyle(
@@ -297,9 +291,7 @@ class _RecommendationPageState extends State<RecommendationPage> {
                   ],
                 ),
               ),
-
               const SizedBox(width: 6),
-
               Container(
                 width: 65,
                 height: 75,
@@ -327,7 +319,6 @@ class _RecommendationPageState extends State<RecommendationPage> {
                         fontSize: 23,
                       ),
                     ),
-
                     const Text(
                       'kosong',
                       style: TextStyle(fontSize: 10),
@@ -337,9 +328,7 @@ class _RecommendationPageState extends State<RecommendationPage> {
               ),
             ],
           ),
-
           const SizedBox(height: 11),
-
           SizedBox(
             width: double.infinity,
             height: 34,
@@ -350,12 +339,12 @@ class _RecommendationPageState extends State<RecommendationPage> {
                 foregroundColor: Colors.white,
                 elevation: 0,
                 shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(20),
+                  borderRadius: BorderRadius.circular(14),
                 ),
               ),
               child: const Text(
                 'Lihat Detail',
-                style: TextStyle(fontSize: 11),
+                style: TextStyle(fontSize: 11, fontWeight: FontWeight.w600),
               ),
             ),
           ),
@@ -383,9 +372,7 @@ class _RecommendationPageState extends State<RecommendationPage> {
             color: Colors.grey,
             size: 42,
           ),
-
           SizedBox(height: 10),
-
           Text(
             'Area parkir tidak ditemukan.',
             style: TextStyle(
@@ -393,9 +380,7 @@ class _RecommendationPageState extends State<RecommendationPage> {
               fontWeight: FontWeight.w600,
             ),
           ),
-
           SizedBox(height: 5),
-
           Text(
             'Coba gunakan kata kunci lain.',
             textAlign: TextAlign.center,
@@ -421,53 +406,125 @@ class _RecommendationPageState extends State<RecommendationPage> {
           onRefresh: () async {
             setState(() {});
           },
-          child: ListView(
-            padding: const EdgeInsets.all(18),
+          child: Column(
             children: [
-              const Text(
-                'Cari Parkir',
-                style: TextStyle(
-                  fontSize: 22,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-
-              const SizedBox(height: 6),
-
-              const Text(
-                'Temukan area parkir yang sesuai dengan kebutuhanmu.',
-                style: TextStyle(
-                  color: Colors.grey,
-                  fontSize: 12,
-                  height: 1.5,
-                ),
-              ),
-
-              const SizedBox(height: 19),
-
-              // Panel pencarian.
+              // Header Hijau Butek di Atas
               Container(
-                padding: const EdgeInsets.all(17),
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(19),
+                width: double.infinity,
+                padding: const EdgeInsets.fromLTRB(20, 22, 20, 24),
+                decoration: const BoxDecoration(
+                  color: green,
+                  borderRadius: BorderRadius.only(
+                    bottomLeft: Radius.circular(22),
+                    bottomRight: Radius.circular(22),
+                  ),
                 ),
-                child: Column(
+                child: const Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const Text(
-                      'Search Rekomendasi Parkir',
+                    Text(
+                      'Cari Parkir',
                       style: TextStyle(
-                        fontSize: 16,
+                        color: Colors.white,
+                        fontSize: 21,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
-
-                    const SizedBox(height: 6),
-
-                    const Text(
-                      'Cari berdasarkan kode, nama, atau lokasi parkir.',
+                    SizedBox(height: 5),
+                    Text(
+                      'Temukan area parkir yang sesuai dengan kebutuhanmu.',
                       style: TextStyle(
+                        color: Colors.white70,
+                        fontSize: 11,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              Expanded(
+                child: ListView(
+                  padding: const EdgeInsets.all(18),
+                  children: [
+                    // Panel pencarian dengan warna hijau butek transparan
+                    Container(
+                      padding: const EdgeInsets.all(17),
+                      decoration: BoxDecoration(
+                        color: green.withOpacity(0.15),
+                        borderRadius: BorderRadius.circular(20),
+                        border: Border.all(
+                          color: green.withOpacity(0.3),
+                          width: 1.5,
+                        ),
+                      ),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          const Text(
+                            'Search Rekomendasi Parkir',
+                            style: TextStyle(
+                              fontSize: 15,
+                              fontWeight: FontWeight.w800,
+                              color: darkGreen,
+                            ),
+                          ),
+                          const SizedBox(height: 4),
+                          Text(
+                            'Cari berdasarkan kode, nama, atau lokasi parkir.',
+                            style: TextStyle(
+                              color: darkGreen.withOpacity(0.8),
+                              fontSize: 11,
+                              fontWeight: FontWeight.w500,
+                            ),
+                          ),
+                          const SizedBox(height: 14),
+                          buildSearchBox(),
+                        ],
+                      ),
+                    ),
+
+                    const SizedBox(height: 23),
+
+                    // Judul daftar parkir.
+                    Row(
+                      children: [
+                        const Expanded(
+                          child: Text(
+                            'Area Parkir Tersedia',
+                            style: TextStyle(
+                              fontSize: 18,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ),
+                        Container(
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: 10,
+                            vertical: 6,
+                          ),
+                          decoration: BoxDecoration(
+                            color: paleGreen,
+                            borderRadius: BorderRadius.circular(20),
+                            border: Border.all(color: green),
+                          ),
+                          child: const Text(
+                            'Slot terbanyak',
+                            style: TextStyle(
+                              color: darkGreen,
+                              fontSize: 10,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+
+                    const SizedBox(height: 5),
+
+                    Text(
+                      searchQuery.isEmpty
+                          ? 'Diurutkan dari jumlah slot kosong terbanyak.'
+                          : '${results.length} hasil ditemukan.',
+                      style: const TextStyle(
                         color: Colors.grey,
                         fontSize: 11,
                       ),
@@ -475,75 +532,24 @@ class _RecommendationPageState extends State<RecommendationPage> {
 
                     const SizedBox(height: 14),
 
-                    buildSearchBox(),
+                    // Daftar hasil pencarian.
+                    if (results.isEmpty)
+                      buildEmptyState()
+                    else
+                      ...results.map(buildParkingCard),
+
+                    const SizedBox(height: 20),
+
+                    const Center(
+                      child: Text(
+                        'Data slot parkir masih berupa simulasi.',
+                        style: TextStyle(
+                          color: Colors.grey,
+                          fontSize: 10,
+                        ),
+                      ),
+                    ),
                   ],
-                ),
-              ),
-
-              const SizedBox(height: 23),
-
-              // Judul daftar parkir.
-              Row(
-                children: [
-                  const Expanded(
-                    child: Text(
-                      'Area Parkir Tersedia',
-                      style: TextStyle(
-                        fontSize: 18,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                  ),
-
-                  Container(
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 10,
-                      vertical: 6,
-                    ),
-                    decoration: BoxDecoration(
-                      color: paleGreen,
-                      borderRadius: BorderRadius.circular(20),
-                    ),
-                    child: const Text(
-                      'Slot terbanyak',
-                      style: TextStyle(
-                        color: darkGreen,
-                        fontSize: 10,
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-
-              const SizedBox(height: 5),
-
-              Text(
-                searchQuery.isEmpty
-                    ? 'Diurutkan dari jumlah slot kosong terbanyak.'
-                    : '${results.length} hasil ditemukan.',
-                style: const TextStyle(
-                  color: Colors.grey,
-                  fontSize: 11,
-                ),
-              ),
-
-              const SizedBox(height: 14),
-
-              // Daftar hasil pencarian.
-              if (results.isEmpty)
-                buildEmptyState()
-              else
-                ...results.map(buildParkingCard),
-
-              const SizedBox(height: 20),
-
-              const Center(
-                child: Text(
-                  'Data slot parkir masih berupa simulasi.',
-                  style: TextStyle(
-                    color: Colors.grey,
-                    fontSize: 10,
-                  ),
                 ),
               ),
             ],
