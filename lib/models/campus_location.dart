@@ -39,8 +39,8 @@ class CampusParking extends CampusParkingLocation {
   CampusParking({
     required String id,
     required String name,
-    required double x,
-    required double y,
+    required super.x,
+    required super.y,
     required int available,
     required int capacity,
   }) : super(
@@ -51,8 +51,6 @@ class CampusParking extends CampusParkingLocation {
             available,
             capacity,
           ),
-          x: x,
-          y: y,
         );
 
   String get id => parking.code;
